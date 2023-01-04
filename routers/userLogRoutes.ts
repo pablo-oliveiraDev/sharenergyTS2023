@@ -1,12 +1,11 @@
 import { Router } from "express";
 import DB_userLog from "../models/db_userLog";
+import userLogController from "../controllers/userLogController";
 
 const router = Router();
 
-router.get("/", async (req, res) => {
-  const data = await DB_userLog.find();
-  res.status(200).json(data);
-});
+router.get("/", userLogController.index);
+
 router.post("/", async (req, res) => {
   const data = req.body;
   const response = await DB_userLog.find();
@@ -31,9 +30,9 @@ router.delete("/:id", async (req, res) => {
   const id = req.params.id;
   const response = await DB_userLog.find();
   const user = response.filter((u) => {
-      return u._id.toHexString() === id;
-    })
-    
+    return u._id.toHexString() === id;
+  });
+
   if (!!id && !!user) {
     await DB_userLog.deleteOne({ _id: id });
     try {
