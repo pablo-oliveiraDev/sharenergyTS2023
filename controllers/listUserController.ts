@@ -1,9 +1,10 @@
 import { json, Request, Response } from "express";
-import userLog from "../models/db_userLog";
-const userLogController = {
+import listUser from "../models/listUser";
+
+const listUserController = {
   async index(req: Request, res: Response): Promise<Response> {
     try {
-      let userRoutes = await userLog.find();
+      let userRoutes = await listUser.find();
       return res.status(200).json(userRoutes);
     } catch (error) {
       return res.status(500).json({ message: error });
@@ -11,12 +12,12 @@ const userLogController = {
   },
   async post(req: Request, res: Response){
     const data = req.body;
-    const response = await userLog.find();
+    const response = await listUser.find();
     const user = response.filter((u) => {
       return u.user_name === data.user_name;
     });
     if (user === undefined || user.length === 0) {
-      await userLog.create(data);
+      await listUser.create(data);
       try {
         res.status(201).json({ message: "User criado com sucesso!" });
       } catch (error) {
@@ -29,13 +30,13 @@ const userLogController = {
   },
   async delete(req: Request, res: Response){
     const id = req.params.id;
-    const response = await userLog.find();
+    const response = await listUser.find();
     const user = response.filter((u) => {
       return u._id.toHexString() === id;
     });
   
     if (!!id && !!user && user.length > 0) {
-      await userLog.deleteOne({ _id: id });
+      await listUser.deleteOne({ _id: id });
       try {
         res.status(200).json({ message: "Usuário deletado com sucesso!" });
       } catch (error) {
@@ -47,4 +48,4 @@ const userLogController = {
   },
 
 };
-export default userLogController;
+export default listUserController;
