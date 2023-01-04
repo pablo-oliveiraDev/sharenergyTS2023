@@ -1,4 +1,4 @@
-import { notEqual } from "assert";
+import {describe, expect, test} from '@jest/globals';
 import axios from "axios";
 import crypto from "crypto";
 
@@ -13,8 +13,8 @@ let data1 = {
   cpf: generate(),
   telefone: generate(),
 };
-let userPost = "";
-let getUsers = "";
+let userPost = [{}];
+let getUsers = {};
 //=========== Execução ===========
 describe("Teste simples", () => {
   it("teste verificacao get", async function () {
@@ -42,9 +42,9 @@ describe("Teste simples de post", () => {
 
     userPost = getUsers.filter((u) => {
       return u.email === data1.email;
-    });
+    }).toString();
     expect(data1).toEqual({
-      nome: userPost[0].nome,
+      nome: userPost.nome,
       email: userPost[0].email,
       cpf: userPost[0].cpf,
       senha: userPost[0].senha,
