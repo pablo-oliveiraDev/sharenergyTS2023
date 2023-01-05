@@ -1,13 +1,24 @@
 import { describe, expect, test } from "@jest/globals";
-
-import axios from "axios";
+import { Request, Response, NextFunction } from 'express'
+import axios, { AxiosAdapter, AxiosResponse } from "axios";
 import crypto from "crypto";
+
 
 //=========== Montagem de cenario =============
 const generate = () => {
   return crypto.randomBytes(20).toString("hex");
 };
-let data1 = {
+
+interface userPost {
+  nome: String;
+  user_name: String;
+  email: String;
+  senha: String;
+  cpf: String;
+  telefone: String;
+  tipo: String;
+};
+let data1=  {
   nome: generate(),
   user_name: generate(),
   email: generate(),
@@ -15,37 +26,32 @@ let data1 = {
   cpf: generate(),
   telefone: generate(),
 };
-let userPost = {
 
-};
-let getUsers = {
- 
-};
 //=========== Execução ===========
 describe("Teste simples", () => {
   it("teste verificacao get", async function () {
-    await axios.get("http://localhost:5080/userLogRoutes").then((res) => {
-      getUsers = res.data;
-      //======verificação ==========
-      expect(res.status).toBe(200);
-    });
+    let res: AxiosResponse = await axios.get("http://localhost:5080/userLogRoutes");
+    //======verificação ==========
+    expect(res.status).toBe(200);
   });
 });
+
 //=========== Execução ===========
 describe("Teste simples de post", () => {
   it("teste verificacao de status e dados cadastrados", async function () {
     await axios
       .post("http://localhost:5080/userLogRoutes/", data1)
-      .then((res) => {
+      .then((res: AxiosResponse) => {
         //======verificação status success ==========
 
         expect(res.status).toBe(201);
       });
+
     //======verificação persistencia post ==========
-    const res = await axios.get("http://localhost:5080/userLogRoutes");
-    getUsers = res.data;
-    console.log(res.data.toString());
-    userPost = getUsers.filter((usr) => {
+    const res: AxiosResponse = await axios.get("http://localhost:5080/userLogRoutes");
+    let getUsers = res.data;
+
+    let userPost = getUsers.filter((usr: userPost) => {
       return usr.user_name === data1.user_name;
     });
     expect(data1).toEqual({
@@ -58,34 +64,13 @@ describe("Teste simples de post", () => {
     });
   });
 });
+
 //=========== Execução ===========
-describe("Teste efetuar login", () => {
-  it("verificação de retornar usuario logado e verificação de dados o usuario", async function () {
-    const newData = [
-     { user_name: data1.user_name},
-      {senha: data1.senha}
-    ];
-
-    await axios
-      .post("http://localhost:5080/loginUser", newData)
-      .then((res) => {
-        const logedUser = res.data;
-
-        //======verificação status code ==========
-        expect(res.status).toBe(200);
-        //======verificação retorno dados pos login ==========
-        expect(newData).toEqual({
-          email: userPost[0].email,
-          senha: userPost[0].senha,
-        });
-      });
-  });
-});
 describe("teste delete user", () => {
   it("verificação de persistencia e status", async function () {
-    const res = await axios.get("http://localhost:5080/userLogRoutes");
-    getUsers = res.data;
-    userPost = getUsers.filter((u: { email: string; }) => {
+    let res:AxiosResponse = await axios.get("http://localhost:5080/userLogRoutes");
+    let getUsers = res.data;
+    let userPost = getUsers.filter((u:userPost) => {
       return u.email === data1.email;
     });
 
@@ -101,3 +86,4 @@ describe("teste delete user", () => {
       });
   });
 });
+

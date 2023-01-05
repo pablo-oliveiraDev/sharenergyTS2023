@@ -1,12 +1,11 @@
 import { Router } from "express";
-import listUserController from "../controllers/listUserController";
+import userLogController from "../controllers/userLogController";
 
 const router = Router();
 
-router.get("/", listUserController.index);
+router.get("/", userLogController.index);
 
-router.post("/", listUserController.post);
 
-router.delete("/:id", listUserController.delete);
+
 
 export default router;
