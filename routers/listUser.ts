@@ -9,4 +9,6 @@ router.post("/", listUserController.post);
 
 router.delete("/:id", listUserController.delete);
 
+router.patch("/:id", listUserController.patch);
+
 export default router;

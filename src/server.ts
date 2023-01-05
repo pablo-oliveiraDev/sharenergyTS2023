@@ -4,7 +4,8 @@ import mongoose from "mongoose";
 import userLogRoutes from "../routers/userLogRoutes";
 import loginUser from "../routers/loginUser";
 import randomUser from "../routers/randomUser";
-import httpCatStatusCode from "../routers/httpCatStatusCode";
+import statusCode from "../routers/statusCode";
+import listUser from "../routers/listUser";
 
 const app = express();
 
@@ -18,7 +19,8 @@ app.use(cors());
 app.use("/userLogRoutes", userLogRoutes);
 app.use("/loginUser", loginUser);
 app.use("/randomUser", randomUser);
-app.use("/httpCatStatusCode", httpCatStatusCode);
+app.use("/statusCode", statusCode);
+app.use("/listUser", listUser);
 
 const DB_USER = "sharenergy";
 const DB_PASSWORD = encodeURIComponent("UO30JjLCfwhFeFD6");
