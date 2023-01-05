@@ -4,11 +4,10 @@ const LoginController = {
   async index(req: Request, res: Response) {
     const data = req.body;
     const response = await userLog.find();
-    const user = response.filter((u) => {
+    let user = response.filter((u) => {
       return u.user_name === data.user_name && u.senha === data.senha;
-    });
-    if (user === undefined && user ==='') {
-      return
+    }).toString();
+    if (user === undefined && user.length === 0) {
       res.status(500).json({ message: "Usario e senha nao encontrado" });
     }
     try {
