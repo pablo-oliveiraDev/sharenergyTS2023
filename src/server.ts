@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/userLogRoutes", userLogRoutes);
-app.use("/loginUser", loginUser);
+app.use("/loginUser/", loginUser);
 app.use("/randomUser", randomUser);
 app.use("/statusCode", statusCode);
 app.use("/listUser", listUser);
