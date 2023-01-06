@@ -3,7 +3,7 @@ import LoginController from "../controllers/loginController";
 
 const router = Router();
 
-router.get("/", LoginController.index);
+router.post("/", LoginController.index);
 
 
 

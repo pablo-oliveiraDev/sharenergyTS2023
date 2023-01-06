@@ -1,6 +1,5 @@
 import { describe, expect, test } from "@jest/globals";
-import { Request, Response, NextFunction } from "express";
-import axios, { AxiosAdapter, AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 import crypto from "crypto";
 
 //=========== Montagem de cenario =============

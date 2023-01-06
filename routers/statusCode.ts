@@ -21,11 +21,11 @@ router.get("/", async (req, res) => {
       const buffer64 = Buffer.from(response.data, "binary").toString("base64");
       let image = `data:${response.headers["content-type"]};base64,${buffer64}`;
       let imgFile = `<image src="${image}" />`;
-      res.send(imgFile);
+      res.status(200).send(imgFile);
     })
     .catch((error) => {
       let imgFile = `<image src="https://http.cat/100" />`;
-      res.send(imgFile);
+      res.status(404).send(imgFile);
     });
 });
 export default router;
