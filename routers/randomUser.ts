@@ -2,8 +2,7 @@ import { Router,Request,Response } from "express";
 import axios, { AxiosResponse } from "axios";
 
 interface randomUsers {
-  name: string;
-  first: string;
+  name: string;  
   foto: string;
   email: string;
   username: string;
@@ -12,9 +11,9 @@ interface randomUsers {
 const router = Router();
 
 router.get("/", async (req:Request, res:Response) => {
-  let num = req.body;
+  let num = req.query.results;
   await axios
-    .get(`https://randomuser.me/api/?results=${num.reult}`)
+    .get(`https://randomuser.me/api/?results=${num}`)
     .then((response: AxiosResponse) => {
       let data: randomUsers = response.data.results;
       let newData = Object.values(data).map((u) => {
