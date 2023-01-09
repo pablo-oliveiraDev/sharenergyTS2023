@@ -9,25 +9,27 @@ const generate = () => {
 };
 
 interface userPost {
-  nome: String;
-  user_name: String;
-  email: String;
-  senha: String;
-  cpf: String;
-  telefone: String;
-  tipo: String;
+  nome: String,
+  email: String,
+  cpf: String,
+  telefone: String,
+  cep: String,
+  cidade: String,
+  rua: String,
+  complemento: String,
+  numero: String,
 };
-interface loginData {
-  user_name: String;
-  senha: String;
-}
+
 let data1 = {
   nome: generate(),
-  user_name: generate(),
   email: generate(),
-  senha: generate(),
   cpf: generate(),
   telefone: generate(),
+  cep: generate(),
+  cidade: generate(),
+  rua: generate(),
+  complemento: generate(),
+  numero: generate(),
 };
 
 //=========== Execução ===========
@@ -59,15 +61,18 @@ describe("Teste simples de post", () => {
     let getUsers = res.data;
 
     let userPost = getUsers.filter((usr: userPost) => {
-      return usr.user_name === data1.user_name;
+      return usr.nome === data1.nome;
     });
     expect(data1).toEqual({
       nome: userPost[0].nome,
-      user_name: userPost[0].user_name,
       email: userPost[0].email,
       cpf: userPost[0].cpf,
-      senha: userPost[0].senha,
       telefone: userPost[0].telefone,
+      cep: userPost[0].cep,
+      cidade: userPost[0].cidade,
+      rua: userPost[0].rua,
+      complemento: userPost[0].complemento,
+      numero: userPost[0].numero,
     });
   });
 });
@@ -79,7 +84,7 @@ describe("teste delete user", () => {
     );
     let getUsers = res.data;
     let userPost = getUsers.filter((u: userPost) => {
-      return u.user_name === data1.user_name;
+      return u.nome === data1.nome;
     });
 
     let response: AxiosResponse = await axios.delete(
