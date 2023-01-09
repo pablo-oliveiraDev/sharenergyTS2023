@@ -10,7 +10,16 @@ let responseType = {
 router.get("/", async (req, res) => {
   const numImage = req.query.numImage;
   if (!numImage) {
-    res.send(`<image src="https://http.cat/404" />`);
+    axios.get('https://http.cat/404', {
+      responseType: "arraybuffer",
+    })
+    .then((response) => {
+      const buffer64 = Buffer.from(response.data, "binary").toString("base64");
+      let image = `data:${response.headers["content-type"]};base64,${buffer64}`;
+      let imgFile = `<image src="${image}" />`;
+      res.status(404).send(imgFile);
+    })
+  
     return;
   }
   await axios
@@ -21,11 +30,18 @@ router.get("/", async (req, res) => {
       const buffer64 = Buffer.from(response.data, "binary").toString("base64");
       let image = `data:${response.headers["content-type"]};base64,${buffer64}`;
       let imgFile = `<image src="${image}" />`;
-      res.status(200).send(imgFile);
+      res.status(200).send(image);
     })
     .catch((error) => {
-      let imgFile = `<image src="https://http.cat/100" />`;
-      res.status(404).send(imgFile);
+      axios.get('https://http.cat/405', {
+        responseType: "arraybuffer",
+      })
+      .then((response) => {
+        const buffer64 = Buffer.from(response.data, "binary").toString("base64");
+        let image = `data:${response.headers["content-type"]};base64,${buffer64}`;
+        let imgFile = `<image src="${image}" />`;
+        res.status(404).send(imgFile);
+      })
     });
 });
 export default router;
