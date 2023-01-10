@@ -21,7 +21,7 @@ const listUserController = {
       try {
         res.status(201).json({ message: "User criado com sucesso!" });
       } catch (error) {
-        res.status(500).json({ error: error });
+        res.status(500).json({ message: 'Houve um erro inesperado!' });
       }
     } else {
       res.status(500).json({ message: "Já existe um usuário criado com esse nome" });
