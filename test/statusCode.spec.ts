@@ -13,6 +13,7 @@ console.log(num);
 await axios
   .get(`http://localhost:5080/statusCode/?numImage${num}`)
   .then((res: AxiosResponse) => {
+   
     //======verificação status code ==========
     expect(res.status).toBe(200);
   });

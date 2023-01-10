@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/userLogRoutes", userLogRoutes);
-app.use("/loginUser/", loginUser);
+app.use("/loginUser", loginUser);
 app.use("/randomUser", randomUser);
 app.use("/statusCode", statusCode);
 app.use("/listUser", listUser);
@@ -31,7 +31,7 @@ mongoose
   )
   .then(() => {
     app.listen(process.env.PORT || 5080, () => {
-      console.log("VOCE ESTA CONECTADO EM http://localhost:5080");
+      console.log("VOCE ESTA CONECTADO EM http://localhost:5080/");
     });
   })
   .catch((error) => console.log("Erro ao conectar o servidor!", error.message));

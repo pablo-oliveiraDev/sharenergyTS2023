@@ -14,17 +14,17 @@ const listUserController = {
     const data = req.body;
     const response = await listUser.find();
     const user = response.filter((u) => {
-      return u.user_name === data.user_name;
+      return u.nome === data.nome;
     });
     if (user === undefined || user.length === 0) {
       await listUser.create(data);
       try {
         res.status(201).json({ message: "User criado com sucesso!" });
       } catch (error) {
-        res.status(500).json({ error: error });
+        res.status(500).json({ message: 'Houve um erro inesperado!' });
       }
     } else {
-      res.status(500).json({ message: "Já existe um usuário criado com esse email" });
+      res.status(500).json({ message: "Já existe um usuário criado com esse nome" });
     }
   },
   async patch(req: Request, res: Response) {
@@ -38,7 +38,7 @@ const listUserController = {
     if (!!id && !!user && user.length > 0) {
       await listUser.updateOne({ _id: id }, data);
       try {
-        res.status(200).json({ message: "Usuário deletado com sucesso!" });
+        res.status(200).json({ message: "Usuário atualizado com sucesso!" });
       } catch (error) {
         res.status(500).json({ message: error });
       }

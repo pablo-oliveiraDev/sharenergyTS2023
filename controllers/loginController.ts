@@ -1,9 +1,9 @@
-import { json, Request, Response } from "express";
+import {  Request, Response } from "express";
 import userLog from "../models/db_userLog";
 
 const LoginController = {
   async index(req: Request, res: Response) {
-    const data = req.body;
+    let data = req.body;
     const response = await userLog.find();
     let user = response.filter((u) => {
       return u.user_name === data.user_name && u.senha === data.senha;
