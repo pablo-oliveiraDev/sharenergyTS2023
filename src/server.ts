@@ -6,6 +6,7 @@ import loginUser from "../routers/login";
 import randomUser from "../routers/randomUser";
 import statusCode from "../routers/statusCode";
 import listUser from "../routers/listUser";
+import dog from "../routers/dog";
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use("/userLogRoutes", userLogRoutes);
 app.use("/loginUser", loginUser);
 app.use("/randomUser", randomUser);
 app.use("/statusCode", statusCode);
+app.use("/dog", dog);
 app.use("/listUser", listUser);
 
 const DB_USER = "sharenergy";
