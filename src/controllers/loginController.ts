@@ -1,4 +1,4 @@
-import {  Request, Response } from "express";
+import { Request, Response } from "express";
 import userLog from "../models/db_userLog";
 
 const LoginController = {

@@ -9,7 +9,7 @@ const userLogController = {
       return res.status(500).json({ message: error });
     }
   },
-  async post(req: Request, res: Response){
+  async post(req: Request, res: Response) {
     const data = req.body;
     const response = await userLog.find();
     const user = response.filter((u) => {
@@ -27,13 +27,13 @@ const userLogController = {
         .json({ message: "Já existe um usuário criado com esse email" });
     }
   },
-  async delete(req: Request, res: Response){
+  async delete(req: Request, res: Response) {
     const id = req.params.id;
     const response = await userLog.find();
     const user = response.filter((u) => {
       return u._id.toHexString() === id;
     });
-  
+
     if (!!id && !!user && user.length > 0) {
       await userLog.deleteOne({ _id: id });
       try {

@@ -1,18 +1,18 @@
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
-import userLogRoutes from "../routers/userLogRoutes";
-import loginUser from "../routers/login";
-import randomUser from "../routers/randomUser";
-import statusCode from "../routers/statusCode";
-import listUser from "../routers/listUser";
-import dog from "../routers/dog";
+import userLogRoutes from "./routers/userLogRoutes";
+import loginUser from "./routers/login";
+import randomUser from "./routers/randomUser";
+import statusCode from "./routers/statusCode";
+import listUser from "./routers/listUser";
+import dog from "./routers/dog";
 
 const app = express();
 
 app.use(express.urlencoded({
-    extended: true,
-  })
+  extended: true,
+})
 );
 app.use(express.json());
 app.use(cors());
